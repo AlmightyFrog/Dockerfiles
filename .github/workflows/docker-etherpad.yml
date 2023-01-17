@@ -9,13 +9,13 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - '${{ env.NAME }}/*'
-      - '.github/workflows/*${{ env.NAME }}*'
+      - 'etherpad/*'
+      - '.github/workflows/*etherpad*'
   pull_request:
     branches: [ "main" ]
     paths:
-      - '${{ env.NAME }}/*'
-      - '.github/workflows/*${{ env.NAME }}*'
+      - 'etherpad/*'
+      - '.github/workflows/*etherpad*'
   schedule:
     - cron: '23 1 * * 0'  # Sunday at 1:23
 
