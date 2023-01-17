@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'etherpad/*'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'etherpad/*'
+
+jobs:
+  build:
+    name: Build docker image
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        cd etherpad
+        docker build . --file Dockerfile --tag etherpad:$(date +%s)
