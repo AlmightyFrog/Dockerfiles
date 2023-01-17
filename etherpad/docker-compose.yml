@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  etherpad:
+    build: .
+    image: play/etherpad
+    ports:
+      - 9001:9001
+    volumes:
+      - ./data/:/data/
+
