@@ -38,5 +38,5 @@ jobs:
         with:
           context: ./etherpad/
           push: true
-          tags: $(date +'%Y-%m-%d'), latest
+          tags: ${{ IMAGE_NAME }}:$(date +'%Y-%m-%d'), ${{ IMAGE_NAME }}:latest
           labels: $(date +'%Y-%m-%d'), latest
