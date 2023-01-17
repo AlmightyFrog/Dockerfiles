@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor.lowercase }}/etherpad
+  NAME: etherpad
 
 jobs:
   build-and-push-image:
@@ -28,7 +28,14 @@ jobs:
       - name: set release date
         run: |
           echo "RELEASE_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
-    
+
+      - id: githubactor
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.actor }}
+      - id: step2
+        run: echo "IMAGE_NAME=${{ steps.githubactor.outputs.lowercase }}/${{ env.NAME }}" >> ${GITHUB_ENV}
+        
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -42,7 +49,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: ./etherpad/
+          context: ./${{ env.NAME }}/
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.RELEASE_DATE }}, ${{ env.IMAGE_NAME }}:latest
           labels: ${{ env.RELEASE_DATE }}, latest
