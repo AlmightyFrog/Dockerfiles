@@ -1,21 +1,23 @@
-name: Create and publish Etherpad Docker Image
+name: Etherpad Docker Image
 
+env:
+  REGISTRY: ghcr.io
+  NAME: etherpad
+  
 on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
     paths:
-      - 'etherpad/*'
-      - '.github/workflows/*etherpad*'
+      - '${{ env.NAME }}/*'
+      - '.github/workflows/*${{ env.NAME }}*'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'etherpad/*'
-      - '.github/workflows/*etherpad*'
-
-env:
-  REGISTRY: ghcr.io
-  NAME: etherpad
+      - '${{ env.NAME }}/*'
+      - '.github/workflows/*${{ env.NAME }}*'
+  schedule:
+    - cron: '23 1 * * 0'  # Sunday at 1:23
 
 jobs:
   build-and-push-image:
