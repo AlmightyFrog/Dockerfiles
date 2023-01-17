@@ -6,15 +6,16 @@ on:
     branches: [ "main" ]
     paths:
       - 'etherpad/*'
+      - '.github/workflows/*etherpad*'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'etherpad/*'
+      - '.github/workflows/*etherpad*'
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.actor }}/etherpad
-  TAG_NAME: $(date +'%Y-%m-%d')
 
 jobs:
   build-and-push-image:
@@ -39,5 +40,5 @@ jobs:
         with:
           context: ./etherpad/
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}, ${{ env.IMAGE_NAME }}:latest
-          labels: ${{ env.TAG_NAME }}, latest
+          tags: ${{ env.IMAGE_NAME }}:${{ env.date }}, ${{ env.IMAGE_NAME }}:latest
+          labels: ${{ env.date }}, latest
