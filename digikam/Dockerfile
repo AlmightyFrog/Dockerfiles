@@ -19,29 +19,7 @@ RUN \
 		/var/cache/pacman/pkg/* \
 		/var/lib/pacman/sync/*
 
-COPY <<-EOT /config/Desktop/digikamGeneric.desktop
-	[Desktop Entry]
-	Type=Application
-	Categories=Qt;Graphics;Photography;
-	Exec=/opt/digikam/AppRun
-	Icon=/opt/digikam/digikam.png
-	MimeType=x-content/image-dcf;x-content/image-picturecd;
-	Name=digiKam generic
-	Terminal=false
-	StartupWMClass=digikam
-EOT
-
-COPY <<-EOT /config/Desktop/digikam.desktop
-	[Desktop Entry]
-	Type=Application
-	Categories=Qt;Graphics;Photography;
-	Exec=/opt/digikam/AppRun --config /data --database-directory /data
-	Icon=/opt/digikam/digikam.png
-	MimeType=x-content/image-dcf;x-content/image-picturecd;
-	Name=digiKam
-	Terminal=false
-	StartupWMClass=digikam
-EOT
+COPY files/*.desktop /config/Desktop/
 
 RUN chmod +x /config/Desktop/*.desktop
 
