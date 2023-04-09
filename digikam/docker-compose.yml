@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  digikam:
+    build: .
+    image: play/digikam
+    ports:
+      - 3389:3389
+    volumes:
+      - ./data/:/data/
+
