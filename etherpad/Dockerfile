@@ -13,6 +13,7 @@ FROM base AS release
 COPY --chown=node:node --from=build /app/ /app/
 RUN ln -s /data/ /app/var/
 RUN ln -s /data/settings.js /app/settings.js
+RUN chown node: /app/
 USER node
 
 HEALTHCHECK --interval=20s --timeout=3s CMD ["etherpad-healthcheck"]
