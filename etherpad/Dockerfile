@@ -16,7 +16,7 @@ RUN ln -s /data/settings.js /app/settings.js
 RUN chown node: /app/
 USER node
 
-HEALTHCHECK --interval=20s --timeout=3s CMD ["etherpad-healthcheck"]
+#HEALTHCHECK --interval=20s --timeout=3s CMD ["etherpad-healthcheck"]
 
 EXPOSE 9001
 VOLUME ["/data"]
