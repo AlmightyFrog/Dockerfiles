@@ -1,0 +1,50 @@
+name: Docker Image Build for lama-cleaner
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types:
+      - build-docker-image
+
+env:
+  PROJECTNAME: 'lama-cleaner'
+  REPO_URL: 'Sanster/lama-cleaner'
+  REGISTRY: ghcr.io
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.REPO_URL }}
+
+      - name: Manipulate Dockerfile
+        run: |
+          sed -i 's/lama-cleaner==$version/lama-cleaner/g' docker/CPUDockerfile
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: githubactor
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.actor }}
+
+      - name: Build and Push Docker image
+        run: |
+          RELEASE_DATE=$(date --rfc-3339=date)
+          IMAGE_NAME="${{ env.REGISTRY }}/${{ steps.githubactor.outputs.lowercase }}/${{ env.PROJECTNAME }}"
+          
+          docker build -t $IMAGE_NAME:$RELEASE_DATE -t $IMAGE_NAME:latest -f docker/CPUDockerfile .
+          docker push $IMAGE_NAME:$RELEASE_DATE
+          docker push $IMAGE_NAME:latest
+
