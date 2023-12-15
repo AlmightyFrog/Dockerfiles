@@ -1,12 +1,18 @@
 name: Docker Image Build for lama-cleaner
 
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   repository_dispatch:
     types:
       - build-docker-image
+  schedule:
+    - cron: '23 1 * * 0'  # Sunday at 1:23
 
 env:
   PROJECTNAME: 'lama-cleaner'
