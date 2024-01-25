@@ -1,0 +1,15 @@
+version: "3"
+services:
+  lama-cleaner:
+    image: ghcr.io/almightyfrog/instid
+    restart: unless-stopped
+    shm_size: 1gb
+    ports:
+      - 7860:7860
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /data/docker/instid:/data/
+    entrypoint: >
+      python app.py
+networks: {}
