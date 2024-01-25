@@ -16,7 +16,7 @@ RUN pip install torch torchvision torchaudio xformers --index-url https://downlo
 
 RUN pip install -r requirements.txt
 
-RUN python app.py
+#RUN python app.py
 
 EXPOSE 7860
 VOLUME ["/data"]
