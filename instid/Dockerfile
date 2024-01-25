@@ -12,7 +12,7 @@ WORKDIR /app
 RUN git lfs install
 RUN git clone https://github.com/aitrepreneur/INSTID .
 
-RUN pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cul18
+RUN pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu118
 
 RUN pip install -r requirements.txt
 
