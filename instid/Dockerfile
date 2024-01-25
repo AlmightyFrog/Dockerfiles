@@ -1,11 +1,11 @@
 FROM python:3.10
 
-RUN useradd user
+RUN useradd -m user
 
 RUN apt update && apt install -y git-lfs
 
 RUN mkdir /app /data
-RUN chown user:user /app /data
+RUN chown user:user /app /data /home/user/
 USER user
 
 WORKDIR /app
