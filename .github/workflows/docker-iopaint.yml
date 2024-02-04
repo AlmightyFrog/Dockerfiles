@@ -1,1 +1,4 @@
-
+name: 'Dummy IOPaint'
+on:
+  workflow_dispatch:
+  push:
