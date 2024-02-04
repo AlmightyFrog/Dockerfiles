@@ -1,1 +1,57 @@
+name: IOPaint Docker Image
 
+env:
+  REGISTRY: ghcr.io
+  NAME: iopaint
+  
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'iopaint/*'
+      - '.github/workflows/*iopaint*'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'iopaint/*'
+      - '.github/workflows/*iopaint*'
+  schedule:
+    - cron: '23 1 * * 0'  # Sunday at 1:23
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: set release date
+        run: |
+          echo "RELEASE_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+
+      - id: githubactor
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.actor }}
+      - id: step2
+        run: echo "IMAGE_NAME=ghcr.io/${{ steps.githubactor.outputs.lowercase }}/${{ env.NAME }}" >> ${GITHUB_ENV}
+        
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./${{ env.NAME }}/
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ env.RELEASE_DATE }}, ${{ env.IMAGE_NAME }}:latest
+          labels: ${{ env.RELEASE_DATE }}, latest
