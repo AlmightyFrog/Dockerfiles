@@ -2,3 +2,8 @@ name: 'Dummy IOPaint'
 on:
   workflow_dispatch:
   push:
+
+jobs:
+  dummy:
+    name: just a dummy
+    runs-on: ubuntu-latest
