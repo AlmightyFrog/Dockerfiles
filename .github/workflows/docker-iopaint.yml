@@ -7,3 +7,6 @@ jobs:
   dummy:
     name: just a dummy
     runs-on: ubuntu-latest
+    steps:
+      - name: env
+        run: env
