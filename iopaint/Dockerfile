@@ -9,6 +9,7 @@ RUN pip3 install --upgrade pip
 # pip3 install torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/rocm5.6
 
 RUN pip3 install iopaint
+RUN iopaint install-plugins-packages
 
 EXPOSE 8080
 
