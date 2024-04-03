@@ -1,0 +1,20 @@
+version: "3"
+services:
+  iopaint:
+    build: .
+    image: ghcr.io/almightyfrog/iopaint
+    restart: unless-stopped
+    shm_size: 1gb
+    ports:
+      - 9999:8080
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /data/docker/iopaint:/home/user/.cache/
+    entrypoint: >
+      iopaint start --device=cpu --port=8080 --host=0.0.0.0
+        --enable-realesrgan --realesrgan-device cpu
+        --enable-gfpgan --gfpgan-device cpu
+        --enable-restoreformer --restoreformer-device cpu
+        --enable-remove-bg
+        --enable-interactive-seg
