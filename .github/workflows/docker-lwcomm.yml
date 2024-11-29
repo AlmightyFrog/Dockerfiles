@@ -47,7 +47,7 @@ jobs:
       - name: Patch Dockerfile
         run: |
           # Remove the first line of the Dockerfile and add the new FROM line
-          sed -i '1s|.*|FROM node:10-alpine|' Dockerfile
+          sed -i '1s|.*|FROM node:10-alpine|' ./lw.comm-server/Dockerfile
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
