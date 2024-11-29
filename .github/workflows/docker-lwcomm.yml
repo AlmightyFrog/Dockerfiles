@@ -48,6 +48,8 @@ jobs:
         run: |
           # Remove the first line of the Dockerfile and add the new FROM line
           sed -i '1s|.*|FROM node:10-alpine|' ./lw.comm-server/Dockerfile
+          # Immediately after FROM, add Python installation
+          sed -i '2i RUN apk add --no-cache python3 py3-pip' ./lw.comm-server/Dockerfile
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
