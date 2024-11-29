@@ -44,6 +44,11 @@ jobs:
         run: |
           git clone https://github.com/LaserWeb/lw.comm-server.git ./lw.comm-server
 
+      - name: Patch Dockerfile
+        run: |
+          # Remove the first line of the Dockerfile and add the new FROM line
+          sed -i '1s|.*|FROM node:10-alpine|' Dockerfile
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
