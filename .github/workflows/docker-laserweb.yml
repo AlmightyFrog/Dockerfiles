@@ -1,4 +1,4 @@
-name: Build LaserWeb Docker Image for Raspberry Pi (RPi2, RPi3, RPi4)
+name: Build LaserWeb Docker Image for Linux x64 and Raspberry Pi (RPi2, RPi3, RPi4)
 
 env:
   REGISTRY: ghcr.io
@@ -62,7 +62,7 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.RELEASE_DATE }}
             ${{ env.IMAGE_NAME }}:latest
-          platforms: linux/arm/v7,linux/arm64/v8
+          platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
           labels: |
             org.opencontainers.image.created=${{ env.RELEASE_DATE }}
             org.opencontainers.image.version=latest
