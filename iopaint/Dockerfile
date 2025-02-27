@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 RUN apt-get update && apt-get upgrade -y
 RUN pip3 install --upgrade pip
