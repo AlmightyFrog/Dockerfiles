@@ -1,0 +1,11 @@
+version: "3"
+services:
+  lwcomm:
+    build: .
+    image: ghcr.io/almightyfrog/lwcomm
+    restart: unless-stopped
+    shm_size: 1gb
+    ports:
+      - 8000:8000
+    devices:
+      - /dev/:/dev/
