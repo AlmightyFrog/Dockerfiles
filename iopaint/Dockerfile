@@ -1,22 +1,28 @@
-FROM python:3.10-slim
+FROM python:3.11-slim-bookworm
 
 RUN apt-get update && \
     apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 \
+        curl \
+        ca-certificates \
+        git \
+        build-essential && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    pip3 install --upgrade pip && \
     addgroup --gid 1000 user && \
     adduser --uid 1000 --gid 1000 user
 
-USER user
-ENV PATH="/home/user/.local/bin:${PATH}"
+RUN curl -Ls https://astral.sh/uv/install.sh | sh && \
+    ln -s /root/.local/bin/uv /usr/local/bin/uv
 
-RUN pip3 install torch==2.1.2 torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
-    pip3 install iopaint && \
+RUN uv pip install --system torch==2.10.0 torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
+    uv pip install --system iopaint && \
     iopaint install-plugins-packages
 
-# ugly patch numpy dependency break
-RUN pip3 install "numpy<2" 
+USER user
+ENV PATH="/home/user/.local/bin:/usr/local/bin:$PATH"
 
 EXPOSE 8080
 
