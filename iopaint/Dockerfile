@@ -15,6 +15,9 @@ RUN pip3 install torch==2.1.2 torchvision --extra-index-url https://download.pyt
     pip3 install iopaint && \
     iopaint install-plugins-packages
 
+# ugly patch numpy dependency break
+RUN pip3 install "numpy<2" 
+
 EXPOSE 8080
 
 CMD ["bash"]
