@@ -14,6 +14,7 @@ ENV PATH="/home/user/.local/bin:${PATH}"
 RUN pip3 install torch==2.1.2 torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
     pip3 install iopaint && \
     iopaint install-plugins-packages
+RUN pip3 install "numpy<2" # ugly patch for now
 
 # ugly patch numpy dependency break
 RUN pip3 install "numpy<2" 
