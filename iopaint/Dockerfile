@@ -24,9 +24,6 @@ RUN uv pip install --system torch==2.10.0 torchvision --extra-index-url https://
 USER user
 ENV PATH="/home/user/.local/bin:/usr/local/bin:$PATH"
 
-# ugly patch numpy dependency break
-RUN pip3 install "numpy<2" 
-
 EXPOSE 8080
 
 CMD ["bash"]
