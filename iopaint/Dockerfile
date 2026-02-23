@@ -17,7 +17,7 @@ RUN apt-get update && \
 RUN curl -Ls https://astral.sh/uv/install.sh | sh && \
     ln -s /root/.local/bin/uv /usr/local/bin/uv
 
-RUN uv pip install --system torch==2.3.1 torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
+RUN uv pip install --system torch==2.10.0 torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
     uv pip install --system iopaint && \
     iopaint install-plugins-packages
 
